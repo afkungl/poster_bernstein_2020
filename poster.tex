@@ -45,3 +45,40 @@
 \begin{document}
 	\input{content.tex}
 \end{document}
+
+
+% cemetery
+
+\begin{block}{\large 4 In-the-loop training}
+                    \blockSpaceOne
+
+                    \begin{adjustwidth}{1.cm}{1.cm}
+                    \justifying
+                    We trained a 5 neuron network to \textbf{sample from a target probability distribution}.
+                    We used the \textbf{wake-sleep algorithm} \cite{ackley1987learning}:
+                    \secondBlockImSpace
+                    \begin{equation}\label{eq:wake_sleep}
+                        \begin{split}
+                        \Delta b_i &= \eta(\langle z_i \rangle_{data} - \langle z_i \rangle_{model}) \\
+                        \Delta W_{ij} &= \eta (\langle z_i z_j \rangle_{data} - \langle z_i z_j\rangle_{model})
+                        \end{split}
+                    \end{equation}
+                    \secondBlockImSpace
+                    where the data phase is given by the target distribution.
+                    We trained the networks in an \textbf{in-the-loop} manner: Parameter updates are calculated on the host computer with \cref{eq:wake_sleep} based on the spike times measured on hardware.
+                    \end{adjustwidth}
+                    \secondBlockImSpace
+                    \begin{center}
+                        \includegraphics[width=1.\textwidth]{figDistr}
+                    \end{center}
+                    \secondBlockImSpace
+
+                    \begin{adjustwidth}{1.cm}{1.cm}
+                    \justify
+                    
+                    The \textbf{training reduced the Kullbeck-Leibler Divergence (DKL)} between the sampled and the target distribution (Fig-A-F).
+                    Due to the acceleration of the hardware \textbf{the full training scheme (including overhead) is two orders of magnitude faster than biological real-time}.
+                    \end{adjustwidth}
+
+                    \blockSpaceOne
+                    \end{block}

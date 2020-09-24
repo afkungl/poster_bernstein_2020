@@ -1,0 +1,13 @@
+*.toc
+*.nav
+*.out 
+*.snm
+*.bak
+*.aux
+*.log
+*.bbl
+*.blg
+*.lof
+*.lot
+*.pdf
+*.pyc

@@ -19,7 +19,102 @@
 				\begin{column}{0.32\textwidth}
 
 
-					\begin{block}{\large 1 The BrainScaleS system}
+					\begin{block}{\large 1 Probabilistic models}
+					\blockSpaceOne
+
+
+					\justifying
+					\begin{adjustwidth}{1.cm}{1.cm}
+					 The noisy behavior of neurons is very likely theory hallmark of a stochastic computation scheme.
+					 Such a scheme explains how the brain deals with ambiguous input, and how visual illusions like bi-stable images (duck/rabbit) might form, i.e., through sampling of modes.
+					 According to the \textbf{neural sampling hypothesis} \cite{fiser2010statistically} certain cortical areas implement \textbf{sampling based probabilistic inference}.
+
+					\end{adjustwidth}
+
+					\vspace{1.cm}
+					\begin{center}
+						\includegraphics[width=0.7\textwidth]{example-image-a}
+					\end{center}
+
+					\begin{adjustwidth}{1cm}{1cm}
+					
+					These models are of particular interest for physical model systems as the brain faces similar challenges.
+					\textbf{We review two works \cite{dold2019stochasticity,kungl2019accelerated}, in which we deployed stochastic spiking networks as robust models on neuromorphic hardware.}
+
+					\end{adjustwidth}
+
+					\blockSpaceOne
+					\end{block}
+
+
+					\interBlockSpaceOne
+
+
+
+					\begin{block}{\large 2 Sampling with spikes}
+					\blockSpaceOne
+
+					\begin{adjustwidth}{1.cm}{1.cm}
+					\justifying
+					For applications, we require models that explicitly treat and use the sampling nature of neural networks.
+
+					\vspace{.5cm}
+					\begin{center}
+						\includegraphics[width=.9\textwidth]{figTHfull}
+					\end{center}
+					\vspace{.5cm}
+
+					In the \textbf{LIF sampling} framework \cite{petrovici2016stochastic} a single neuron describes a binary random variable based on its spiking behavior (Fig-A-B).
+					The network approximately samples from a Boltzmann distribution over binary random variables:
+					\begin{equation}
+					p(z) \sim \frac{1}{Z} \exp \left ( \frac{1}{2} \sum_{ij} W_{ij} z_i z_j + \sum_{i} b_i z_i  \right)
+					\end{equation}
+					\end{adjustwidth}
+					For practical applications we use a \textbf{hierarchical sampling network} (Fig-C) inspired by restricted Boltzmann machines \cite{hinton1984boltzmann}.
+
+
+
+					\blockSpaceOne
+					\end{block}
+
+
+				\end{column}
+
+				\begin{column}{.01\textwidth}\end{column}
+
+				\begin{column}{0.32\textwidth}
+
+
+					\begin{block}{\large 3 We may need no noise}
+					\blockSpaceOne
+
+					\begin{adjustwidth}{1.cm}{1.cm}
+					\justifying
+					In most models, the temporal variability experiences by the neurons is replaced by white Gaussian noise.
+					This is however problematic because 1) a the \textbf{background activity of other brain areas is not necessarily a white noise} and 2) a neuromorphic implementation would require sufficient noise sources. 
+					\end{adjustwidth}
+
+					\secondBlockImSpace
+					\begin{center}
+						\includegraphics[width=.7\textwidth]{example-image-a}
+					\end{center}
+					\secondBlockImSpace
+
+					\begin{adjustwidth}{1.cm}{1.cm}
+					\justifying
+
+					We  found \cite{dold2019stochasticity} that  \textbf{an  ensemble  of  dynamically  fully  deterministic,  but functionally probabilistic networks}, can learn a connectivity pattern that enables probabilistic computation with a degree of precision that matches the one attainable with idealized,  perfectly  stochastic  components.
+					The  key  element  of  this  construction  is  self-consistency,  in  that  all input activity seen by a neuron is the result of output activity of other neurons that fulfill a functional role in their respective subnetworks
+					
+					\end{adjustwidth}
+
+					\blockSpaceOne
+					\end{block}
+
+					\interBlockSpaceOne
+
+					
+				\begin{block}{\large 4 The BrainScaleS system}
 					\blockSpaceOne
 
 
@@ -44,37 +139,6 @@
 					\blockSpaceOne
 					\end{block}
 
-					\interBlockSpaceOne
-
-					\begin{block}{\large 2 Sampling as robust coding}
-					\blockSpaceOne
-
-					\begin{adjustwidth}{1.cm}{1.cm}
-					\justifying
-					According to the \textbf{neural sampling hypothesis} \cite{fiser2010statistically} certain cortical areas implement \textbf{sampling based probabilistic inference}.
-					These models are of particular interest for physical model systems as the brain faces similar challenges.
-
-					\vspace{.5cm}
-					\begin{center}
-						\includegraphics[width=.9\textwidth]{figTHfull}
-					\end{center}
-					\vspace{.5cm}
-
-					In the \textbf{LIF sampling} framework \cite{petrovici2016stochastic} a single neuron describes a binary random variable based on its spiking behavior (Fig-A-B).
-					The network approximately samples from a Boltzmann distribution over binary random variables:
-					\begin{align*}
-					p(z) &= \frac{1}{Z} \exp \left ( \frac{1}{2} \sum_{ij} W_{ij} z_i z_j + \sum_{i} b_i z_i  \right) \\
-					Z &= \sum_{z\in\{0,1\}^N} \exp \left ( \frac{1}{2} \sum_{ij} W_{ij} z_i z_j + \sum_{i} b_i z_i  \right)
-					\end{align*}
-					\end{adjustwidth}
-					For practical applications we use a \textbf{hierarchical sampling network} (Fig-C) inspired by restricted Boltzmann machines \cite{hinton1984boltzmann}.
-
-
-
-					\blockSpaceOne
-					\end{block}
-
-
 
 
 
@@ -84,79 +148,7 @@
 
 				\begin{column}{0.32\textwidth}
 
-
-					\begin{block}{\large 3 From theory to hardware}
-					\blockSpaceOne
-
-					\begin{adjustwidth}{1.cm}{1.cm}
-					\justifying
-					We adapted the LIF sampling theory to the characteristics of the hardware.
-					A random inhibition-dominated \textbf{decorrelation network (DN)} provides the necessary stochasticity to the sampling network (Fig-A).
-					This way we realized a fully \textbf{self-contained sampler} on the accelerated substrate.
-					As a comparison we implemented the setup with external Poisson noise (Fig-B).
-					\end{adjustwidth}
-
-					\secondBlockImSpace
-					\begin{center}
-						\includegraphics[width=1.\textwidth]{figSetupFull}
-					\end{center}
-					\secondBlockImSpace
-
-					\begin{adjustwidth}{1.cm}{1.cm}
-					\justifying
-					The hardware constraints lead to distortions in the activation function from the ideal sigmoid shape (Fig-C-E); but this can be accounted for by in-the-loop training.
-					\end{adjustwidth}
-
-					\blockSpaceOne
-					\end{block}
-
-					\interBlockSpaceOne
-
-					\begin{block}{\large 4 In-the-loop training}
-					\blockSpaceOne
-
-					\begin{adjustwidth}{1.cm}{1.cm}
-					\justifying
-					We trained a 5 neuron network to \textbf{sample from a target probability distribution}.
-					We used the \textbf{wake-sleep algorithm} \cite{ackley1987learning}:
-					\secondBlockImSpace
-					\begin{equation}\label{eq:wake_sleep}
-						\begin{split}
-						\Delta b_i &= \eta(\langle z_i \rangle_{data} - \langle z_i \rangle_{model}) \\
-						\Delta W_{ij} &= \eta (\langle z_i z_j \rangle_{data} - \langle z_i z_j\rangle_{model})
-						\end{split}
-					\end{equation}
-					\secondBlockImSpace
-					where the data phase is given by the target distribution.
-					We trained the networks in an \textbf{in-the-loop} manner: Parameter updates are calculated on the host computer with \cref{eq:wake_sleep} based on the spike times measured on hardware.
-					\end{adjustwidth}
-					\secondBlockImSpace
-					\begin{center}
-						\includegraphics[width=1.\textwidth]{figDistr}
-					\end{center}
-					\secondBlockImSpace
-
-					\begin{adjustwidth}{1.cm}{1.cm}
-					\justify
-					
-					The \textbf{training reduced the Kullbeck-Leibler Divergence (DKL)} between the sampled and the target distribution (Fig-A-F).
-					Due to the acceleration of the hardware \textbf{the full training scheme (including overhead) is two orders of magnitude faster than biological real-time}.
-					\end{adjustwidth}
-
-					\blockSpaceOne
-					\end{block}
-
-
-
-
-
-				\end{column}
-
-				\begin{column}{.01\textwidth}\end{column}
-
-				\begin{column}{0.32\textwidth}
-
-					\begin{block}{\large 5 Application to handwritten digits}
+					\begin{block}{\large 5 Use-case on neuromorphic hardware}
 					\blockSpaceTwo
 
 					\begin{center}
@@ -166,8 +158,8 @@
 
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justify
-					 Using the LIF sampling framework we implemented a \textbf{restricted Boltzmann machine} (RBM) \cite{hinton1984boltzmann} on the BrainScaleS System.
-					 We evaluate the model on a reduced version of the MNIST dataset \cite{lecun1998gradient}.
+					 Using the LIF sampling framework we implemented a \textbf{restricted Boltzmann machine} (RBM) \cite{hinton1984boltzmann} on the BrainScaleS System \cite{kungl2019accelerated}.
+					 We evaluate the model on a reduced version of the MNIST dataset.
 					 The original pictures were binarized, reduced to $12\times12$ pixels and the digits 0,1,4 and 7 were selected (Fig-A).
 					\end{adjustwidth}
 
@@ -225,12 +217,6 @@
 								\tiny
 								\bibliographystyle{ieeetr}
 								\bibliography{bib}
-			 \end{minipage}
-			 \begin{minipage}{.09\linewidth}
-				\includegraphics[width=1\textwidth,right]{QRguidebook}
-			 \end{minipage}
-			 \begin{minipage}{.09\linewidth}
-				\includegraphics[width=1\textwidth,right]{QRpubl}
 			 \end{minipage}
 
 			\end{block}

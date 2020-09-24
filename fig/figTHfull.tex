@@ -1,0 +1,81 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows,arrows.meta,positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric}
+
+\begin{document}
+\begin{tikzpicture}[
+            font=\sffamily,
+            line width=1pt,
+            scale=1.0,
+            shorten >=1pt,
+            shorten <=1pt,
+            transform shape,
+            vertex/.style={circle, fill=black!30, draw, minimum size=.5cm, inner sep=0pt},
+            syn/.style={->,> = latex',draw=black,fill=black,line width=1.5pt,bend left=10}, % <<<<<<<<<<<
+            visible/.style={circle, fill=green, draw, minimum size=.4cm, inner sep=0pt},
+            hidden/.style={circle, fill=blue, draw, minimum size=.4cm, inner sep=0pt},
+            label/.style={circle, fill=red, draw, minimum size=.4cm, inner sep=0pt},
+            weight/.style={draw=black,fill = black,line width=1pt},
+            assoc/.style={draw=gray,fill = black,line width=1pt, dotted},
+        ]
+
+       % network of five neurons (placed on a circle)
+       \begin{scope}[shift={(-4.8, -0.1)}, scale=.9]
+           \foreach \i in {1,...,5}{
+               \node[vertex] (n\i) at ({(\i - 2)*360./5.}:1.) {\textbf{\i}};
+           }
+
+           % synapses
+           \draw[weight] (n1) edge (n2);
+           \draw[weight] (n2) edge (n3);
+           \draw[weight] (n4) edge (n5);
+           \draw[weight] (n5) edge (n1);
+           \draw[weight] (n3) edge (n5);
+           \draw[weight] (n1) edge (n3);
+
+           % dashed lines to traces corresponding to three of the neurons
+           \draw[assoc] (n1) -- (1.7, -1.10);
+           \draw[assoc] (n2) -- (1.7, 0.05);
+           \draw[assoc] (n3) -- (1.7, 1.2);
+
+       \end{scope}
+
+        \begin{scope}[shift={(3., -1.)}, scale=.9]
+
+            \foreach \x in {1,...,4}{
+                        \node[visible] (v\x) at (0.7*\x, 0) {};
+                    }
+                    \draw (-.5,0) node[scale=1.4] {\tiny\textcolor{green}{\textbf{visible layer}}};
+
+                    \foreach \x in {1,...,5}{
+                        \node[hidden] (h\x) at (0.7*\x-0.35, 1.5) {};
+                    }
+                    \draw (-.85,1.5) node[scale=1.4] {\tiny\textcolor{blue}{\textbf{hidden layer}}};
+
+                    \foreach \x in {1,2,3}{
+                        \node[label] (l\x) at (0.7*\x+0.35, 3) {};
+                    }
+                    \draw (-.15,3) node[scale=1.4] {\tiny\textcolor{red}{\textbf{label layer}}};
+
+                    \foreach \x in {1,...,4}
+                        \foreach \y in {1,...,5}{
+
+                        \draw[weight] (v\x) edge (h\y);
+
+                        }
+
+                    \foreach \x in {1,2,3}
+                        \foreach \y in {1,...,5}{
+
+                        \draw[weight] (l\x) edge (h\y);
+
+                        }
+
+        \end{scope}
+
+        \pgfresetboundingbox
+        \draw[use as bounding box,inner sep=0pt] node {\includegraphics[width=\columnwidth]{figTheory}};
+    \end{tikzpicture}
+\end{document}

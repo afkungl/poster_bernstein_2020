@@ -1,0 +1,265 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows,arrows.meta,positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric}
+
+\begin{document}
+\begin{tikzpicture}[
+    font=\sffamily,
+    line width=1pt,
+    scale=1.0,
+    shorten >=1pt,
+    shorten <=1pt,
+    transform shape,
+    vertex/.style={circle, fill=black!30, draw, minimum size=.4cm, inner sep=0pt},
+    vertexLarge/.style={circle, draw, minimum size=1.5cm, inner sep=0pt},
+    syn/.style={->,> = latex',draw=black,fill=black,line width=1.5pt,bend left=10}, % <<<<<<<<<<<
+    exc/.style={->,> = latex',draw=red,fill =red,line width=.5pt,bend left=10}, % <<<<<<<<<<<
+    excFadeOut/.style={> = latex',draw=red,fill =red,line width=.5pt},
+    inhFadeOut/.style={> = latex',draw=blue,fill =blue,line width=.5pt},
+    inh/.style={->,> = latex',draw=blue,fill=blue,line width=.5pt,bend left=25},
+    excB/.style={->,> = latex',draw=red,fill =red,line width=.5pt,bend right=25}, % <<<<<<<<<<<
+    inhB/.style={->,> = latex',draw=blue,fill=blue,line width=.5pt,bend left=25},
+    squareI/.style={regular polygon,regular polygon sides=4, draw=blue, fill=blue, minimum size=.1cm, inner sep=0pt},
+    squareE/.style={regular polygon,regular polygon sides=4, draw=red, fill=red, minimum size=.1cm, inner sep=0pt},
+    excE/.style={-,draw=red,fill =red,line width=.3pt},
+    excI/.style={-,draw=blue,fill =blue,line width=.3pt},
+    inhNoise/.style={->,> = latex',draw=blue,fill=blue,line width=1.pt,bend right=20},
+    excNoise/.style={->,> = latex',draw=red,fill =red,line width=1.pt,bend left=20},
+    inhLoop/.style={->,> = latex',draw=blue, fill=blue ,line width=3.5pt,out = 45, in = 135, looseness= 5},
+    visible/.style={circle, fill=green, draw, minimum size=.4cm, inner sep=0pt},
+    hidden/.style={circle, fill=blue, draw, minimum size=.4cm, inner sep=0pt},
+    label/.style={circle, fill=red, draw, minimum size=.4cm, inner sep=0pt},
+    weight/.style={draw=black,fill = black,line width=1pt},
+    assoc/.style={draw=gray,fill = black,line width=1pt, dotted},       
+    zoom/.style={line width=.5pt,shorten >=0pt,shorten <=0pt,densely dashed},
+    sonSynapse/.style={->,> = latex',draw=blue,fill=blue,line width=.5pt}   
+    ]
+    
+    % Panel A
+    
+    % network of five neurons (placed on a circle)
+    \begin{scope}[shift={(0.,.1)}, scale=.7]
+    \begin{scope}[shift={(-3.0, -1.9)}, scale=.6, local bounding box=networkPoisson]
+    \foreach \i in {1,...,5}{
+        \node[vertex] (n\i) at ({(\i - 2)*360./5.}:1.) {};
+    }
+    
+    % synapses
+    \draw[weight] (n1) edge (n2);
+    \draw[weight] (n2) edge (n3);
+    \draw[weight] (n4) edge (n5);
+    \draw[weight] (n5) edge (n1);
+    \draw[weight] (n3) edge (n5);
+    \draw[weight] (n1) edge (n3);
+    
+    
+    \end{scope}
+    
+    % close up of one neuron with Poisson noise and functional synapses and bias neuron
+    \begin{scope}[shift={($(networkPoisson.west)+(-3.075,-0.3)$)}, scale=1.]
+        
+        % coordinates of rectangle around close up
+        \coordinate (cu1) at (-1.0,-1.1);
+        \coordinate (cu2) at (2.2,1.8);
+        
+        % rectangle around neuron in network
+        \coordinate (nw1) at (2.97,0.43);
+        \coordinate (nw2) at (2.97+0.45,0.43+0.45);
+        \draw[line width=.5pt] (nw1) rectangle (nw2);
+        
+    
+        % lines relating close up to neuron in network
+        \draw[zoom] (cu1) -- (nw1);
+        \draw[zoom] (cu2) -- (nw2);
+        \draw[zoom] (cu1-|cu2) -- (nw1-|nw2);
+        \draw[zoom] (cu1|-cu2) -- (nw1|-nw2);
+        
+        % rectangle around close up
+        \draw[line width=.5pt,fill=white] (cu1) rectangle (cu2);
+        
+        % sampling neuron
+        \node[vertex] (s1) at(0.,0.) {\textbf{s}};
+        
+        % noise sources
+        \node[squareE,right] (s1e) at (0.7, 0.2) {};
+        \node[right=0.0 of s1e] {$\nu_\mathrm{Poisson}^e$};
+        \draw[excE] (s1e) edge (s1);
+        \node[squareI,right] (s1i) at (0.7, -0.2) {};
+        \node[right=0.0 of s1i] {$\nu_\mathrm{Poisson}^i$};
+        \draw[excI] (s1i) edge (s1);
+        
+        % where the arrows representing synapses point to   
+        \coordinate (d4) at (-60:1.0);
+        \coordinate (d3) at (-79:1.0);
+        \coordinate (d2) at (-100:1.0);
+        \coordinate (d1) at (-121:1.0);
+        
+        
+        % arrows representing synapses, fade out by dotted continuation
+        \draw[inhFadeOut,dotted,shorten <=2pt] (d1) edge (s1);
+        \draw[inhFadeOut,shorten <=8pt] (d1) edge[->] (s1); 
+        
+        \draw[excFadeOut,dotted,shorten <=2pt] (d2) edge (s1);
+        \draw[excFadeOut,shorten <=8pt] (d2) edge[->] (s1); 
+        
+        \draw[excFadeOut,dotted,shorten <=2pt] (s1) edge (d3);
+        \draw[excFadeOut,shorten >=8pt] (s1) edge (d3);
+        
+        \draw[inhFadeOut,dotted,shorten <=2pt] (d4) edge (s1);
+        \draw[inhFadeOut,shorten >=8pt] (s1) edge (d4);
+        
+        \node (w network) at (1.2, -0.8) {$w_\mathrm{network}$};
+        
+        % bias neuron
+        \node[vertex,] (b1) at (0,1.4) {\textbf{b}};
+        \node[right=0.0 of b1] {$\nu_b$};
+        
+        \draw[excB] (b1) edge (s1);
+        \draw[inhB] (b1) edge node[midway,xshift = 15.0] {$w_\mathrm{bias}$} (s1) ;
+    
+    \end{scope}
+    \end{scope}
+    
+    % Panel C
+    
+    % network of five neurons (placed on a circle)
+    \begin{scope}[shift={(0.,.1)}, scale=.7]
+    \begin{scope}[shift={(-3.0, 1.6)}, scale=.6, local bounding box=networkDN]
+        \foreach \i in {1,...,5}{
+            \node[vertex] (n\i) at ({(\i - 2)*360./5.}:1.) {};
+        }
+        
+        % synapses
+        \draw[weight] (n1) edge (n2);
+        \draw[weight] (n2) edge (n3);
+        \draw[weight] (n4) edge (n5);
+        \draw[weight] (n5) edge (n1);
+        \draw[weight] (n3) edge (n5);
+        \draw[weight] (n1) edge (n3);
+    
+    
+    \end{scope}
+    
+    % close up of one neuron with sea of noise noise and functional synapses and bias neuron
+    \begin{scope}[shift={($(networkDN.west)+(-3.075,-0.3)$)}, scale=1.]
+    
+        % coordinates of rectangle around close up
+        \coordinate (cu1) at (-1.0,-1.1);
+        \coordinate (cu2) at (2.2,1.8);
+        
+        % rectangle around neuron in network
+        \coordinate (nw1) at (2.97,0.43);
+        \coordinate (nw2) at (2.97+0.45,0.43+0.45);
+        \draw[line width=.5pt] (nw1) rectangle (nw2);
+        
+        
+        % lines relating close up to neuron in network
+        \draw[zoom] (cu1) -- (nw1);
+        \draw[zoom] (cu2) -- (nw2);
+        \draw[zoom] (cu1-|cu2) -- (nw1-|nw2);
+        \draw[zoom] (cu1|-cu2) -- (nw1|-nw2);
+        
+        % rectangle around close up
+        \draw[line width=.5pt,fill=white] (cu1) rectangle (cu2);
+        
+        % sampling neuron
+        \node[vertex] (s1) at(0.,0.) {\textbf{s}};
+        
+        
+        % where the arrows representing sea of noise synapses point to  
+        \coordinate (sond1) at (9:1.0);
+        \coordinate (sond2) at (-9:1.0);
+        \coordinate (sond3) at (27:1.0);
+        \coordinate (sond4) at (-27:1.0);
+        
+        % arrows representing sea of noise synapses, fade out by dotted continuation
+        \draw[inhFadeOut,dotted,shorten <=2pt] (sond1) edge (s1);
+        \draw[inhFadeOut,shorten <=8pt] (sond1) edge[->] (s1);  
+        \draw[inhFadeOut,dotted,shorten <=2pt] (sond4) edge (s1);
+        \draw[inhFadeOut,shorten <=8pt] (sond4) edge[->] (s1);  
+        
+        \draw[excFadeOut,dotted,shorten <=2pt] (sond2) edge (s1);
+        \draw[excFadeOut,shorten <=8pt] (sond2) edge[->] (s1);  
+        \draw[excFadeOut,dotted,shorten <=2pt] (sond3) edge (s1);
+        \draw[excFadeOut,shorten <=8pt] (sond3) edge[->] (s1);  
+        
+        \node[right=0.175 of (0:0.85)] {DN};
+        
+        
+        % where the arrows representing functional synapses point to    
+        \coordinate (d4) at (-60:1.0);
+        \coordinate (d3) at (-79:1.0);
+        \coordinate (d2) at (-100:1.0);
+        \coordinate (d1) at (-121:1.0);
+        
+        
+        % arrows representing functional synapses, fade out by dotted continuation
+        \draw[inhFadeOut,dotted,shorten <=2pt] (d1) edge (s1);
+        \draw[inhFadeOut,shorten <=8pt] (d1) edge[->] (s1); 
+        
+        \draw[excFadeOut,dotted,shorten <=2pt] (d2) edge (s1);
+        \draw[excFadeOut,shorten <=8pt] (d2) edge[->] (s1); 
+        
+        \draw[excFadeOut,dotted,shorten <=2pt] (s1) edge (d3);
+        \draw[excFadeOut,shorten >=8pt] (s1) edge (d3);
+        
+        \draw[inhFadeOut,dotted,shorten <=2pt] (d4) edge (s1);
+        \draw[inhFadeOut,shorten >=8pt] (s1) edge (d4);
+        
+        \node (w network) at (1.2, -0.8) {$w_\mathrm{network}$};
+        
+    
+        
+        % bias neuron
+        \node[vertex,,] (b1) at (0,1.4) {\textbf{b}};
+        \node[right=0.0 of b1] {$\nu_b$};
+        
+        \draw[excB] (b1) edge (s1);
+        \draw[inhB] (b1) edge node[midway,xshift = 15.0] {$w_\mathrm{bias}$} (s1) ;
+        
+    \end{scope}
+    
+    % sea of noise network (more precisely: decorrelation network) (network of five neurons (placed on a circle))
+    \begin{scope}[shift={($(networkDN.west)+(2.7,0.)$)}, scale=.6, local bounding box=DNnetwork]
+        \foreach \i in {1,...,5}{
+            \node[vertex] (son\i) at ({(\i - 2)*360./5.}:1.) {};
+        }
+        
+        % synapses
+        \draw[sonSynapse] (son1) edge (son2);
+        \draw[sonSynapse] (son3) edge (son2);
+        \draw[sonSynapse] (son5) edge (son1);
+        \draw[sonSynapse] (son2) edge (son4);
+        \draw[sonSynapse] (son3) edge (son4);
+        \draw[sonSynapse] (son2) edge (son5);
+%       \foreach \i in {1,...,5}
+%           \foreach \j in {1,...,5}{
+%               \ifthenelse{\NOT \i = \j }{
+%                   \draw[draw=blue,line width=1pt] (son\i) edge (son\j);
+%               }
+%               {}
+%           
+%       }
+
+        
+        
+        % circle around sea of noise
+        \node[vertexLarge,minimum size=80.] (Son) at (0.0,0.0) {};
+        %\draw[inhLoop] (Son) edge node[above=.2em] {inh.\ recurrent} (Son);
+        \draw[excNoise,shorten >=0pt] (Son) edge node[below] {} (-2.6,-.5);
+        \draw[inhNoise,shorten >=0pt] (Son) edge node[above] {} (-2.6,.5);
+    
+    
+    \end{scope}
+    \end{scope}
+    
+    % DN network in normal font size
+    \node[above = 0. of DNnetwork]{\hspace{0.7cm}DN};
+         
+
+    \pgfresetboundingbox
+    \draw[use as bounding box,inner sep=0pt] node {\includegraphics[width=\textwidth]{figSetup}};
+    \end{tikzpicture}
+\end{document}

@@ -31,10 +31,13 @@
 
 					\end{adjustwidth}
 
-					\vspace{1.cm}
+					\thirdBlockImSpace
+					\vspace{0.49cm}
 					\begin{center}
 						\includegraphics[width=0.8\textwidth]{rabbitDuck}
 					\end{center}
+					\vspace{0.49cm}
+					\thirdBlockImSpace
 
 					\begin{adjustwidth}{1cm}{1cm}
 					
@@ -56,20 +59,23 @@
 
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justifying
-					For applications, we require models that explicitly treat and use the sampling nature of neural networks. (EDIT DODO: I DONT GET THIS?)
+					For applications on spiking hardware, we require models that explicitly treat and use spiking neural networks.
 
-					\vspace{.5cm}
-					\begin{center}
+					\thirdBlockImSpace					\begin{center}
 						\includegraphics[width=.9\textwidth]{figTHfull}
 					\end{center}
-					\vspace{.5cm}
+					\thirdBlockImSpace
 
 					In the \textbf{LIF sampling} framework \cite{petrovici2016stochastic} a single neuron describes a binary random variable based on its spiking behavior (Fig-A-B).
+					Immediately after a spike the neuron is in the \emph{on-state} and otherwise in the \emph{off-state}.
 					The network approximately samples from a Boltzmann distribution over binary random variables:
+					\thirdBlockImSpace
 					\begin{equation}
 					p(z) \sim \frac{1}{Z} \exp \left ( \frac{1}{2} \sum_{ij} W_{ij} z_i z_j + \sum_{i} b_i z_i  \right)
 					\end{equation}
+					\thirdBlockImSpace
 					\end{adjustwidth}
+					This theory established an imporant connections to Boltzmann machines.
 					For practical applications we use a \textbf{hierarchical sampling network} (Fig-C) inspired by restricted Boltzmann machines \cite{hinton1984boltzmann}.
 
 
@@ -94,11 +100,11 @@
 					This is, however, problematic because i) a the \textbf{background activity of other brain areas is not necessarily white noise} and ii) a neuromorphic implementation would require dedicated, uncorrelated noise sources for every neuron. 
 					\end{adjustwidth}
 
-					\secondBlockImSpace
+					\thirdBlockImSpace
 					\begin{center}
-						\includegraphics[width=.9\textwidth]{noisybrain.pdf}
+						\includegraphics[width=.9\textwidth]{noisybrain.png}
 					\end{center}
-					\secondBlockImSpace
+					\thirdBlockImSpace
 
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justifying
@@ -112,6 +118,7 @@
 					\end{block}
 
 					\interBlockSpaceOne
+					\vspace{-0.175cm}
 
 					
 				\begin{block}{\large 4 The BrainScaleS system}
@@ -206,7 +213,7 @@
 		\begin{column}{.005\textwidth}\end{column}
 	\end{columns}
 
-	\vspace{0cm}
+	\vspace{-1.0cm}
 
 	\begin{columns}[t]
 		\begin{column}{.01\textwidth}\end{column}

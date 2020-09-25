@@ -19,27 +19,27 @@
 				\begin{column}{0.32\textwidth}
 
 
-					\begin{block}{\large 1 Probabilistic models}
+					\begin{block}{\large 1 The Bayesian brain}
 					\blockSpaceOne
 
 
 					\justifying
 					\begin{adjustwidth}{1.cm}{1.cm}
-					 The noisy behavior of neurons is very likely theory hallmark of a stochastic computation scheme.
-					 Such a scheme explains how the brain deals with ambiguous input, and how visual illusions like bi-stable images (duck/rabbit) might form, i.e., through sampling of modes.
-					 According to the \textbf{neural sampling hypothesis} \cite{fiser2010statistically} certain cortical areas implement \textbf{sampling based probabilistic inference}.
+					 The noisy behavior of cortical neurons might be a hallmark of an underlying stochastic computation scheme.
+					 Such a scheme would enable the brain to cope with ambiguous inputs and offers an explanation for behavioral effects like bistable images (duck/rabbit) as sampling from different modes of a posterior distribution.
+					 The \textbf{neural sampling hypothesis} \cite{fiser2010statistically} proposes that some cortical areas implement \textbf{sampling-based Bayesian inference}.
 
 					\end{adjustwidth}
 
 					\vspace{1.cm}
 					\begin{center}
-						\includegraphics[width=0.7\textwidth]{example-image-a}
+						\includegraphics[width=0.8\textwidth]{rabbitDuck}
 					\end{center}
 
 					\begin{adjustwidth}{1cm}{1cm}
 					
-					These models are of particular interest for physical model systems as the brain faces similar challenges.
-					\textbf{We review two works \cite{dold2019stochasticity,kungl2019accelerated}, in which we deployed stochastic spiking networks as robust models on neuromorphic hardware.}
+					These models are of particular interest for physical model systems, which face similar challenges as the brain.
+					\textbf{We review two works \cite{dold2019stochasticity,kungl2019accelerated}, in which we deployed stochastic spiking networks as robust and flexible models on  analog neuromorphic hardware.}
 
 					\end{adjustwidth}
 
@@ -56,7 +56,7 @@
 
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justifying
-					For applications, we require models that explicitly treat and use the sampling nature of neural networks.
+					For applications, we require models that explicitly treat and use the sampling nature of neural networks. (EDIT DODO: I DONT GET THIS?)
 
 					\vspace{.5cm}
 					\begin{center}
@@ -85,26 +85,26 @@
 				\begin{column}{0.32\textwidth}
 
 
-					\begin{block}{\large 3 We may need no noise}
+					\begin{block}{\large 3 Deterministic sampling}
 					\blockSpaceOne
 
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justifying
-					In most models, the temporal variability experiences by the neurons is replaced by white Gaussian noise.
-					This is however problematic because 1) a the \textbf{background activity of other brain areas is not necessarily a white noise} and 2) a neuromorphic implementation would require sufficient noise sources. 
+					In most models of cortical networks, temporal variability is introduced using explicit white noise sources.
+					This is, however, problematic because i) a the \textbf{background activity of other brain areas is not necessarily white noise} and ii) a neuromorphic implementation would require dedicated, uncorrelated noise sources for every neuron. 
 					\end{adjustwidth}
 
 					\secondBlockImSpace
 					\begin{center}
-						\includegraphics[width=.7\textwidth]{example-image-a}
+						\includegraphics[width=.9\textwidth]{noisybrain.pdf}
 					\end{center}
 					\secondBlockImSpace
 
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justifying
 
-					We  found \cite{dold2019stochasticity} that  \textbf{an  ensemble  of  dynamically  fully  deterministic,  but functionally probabilistic networks}, can learn a connectivity pattern that enables probabilistic computation with a degree of precision that matches the one attainable with idealized,  perfectly  stochastic  components.
-					The  key  element  of  this  construction  is  self-consistency,  in  that  all input activity seen by a neuron is the result of output activity of other neurons that fulfill a functional role in their respective subnetworks
+					We  found \cite{dold2019stochasticity} that \textbf{an  ensemble  of  dynamically  fully  deterministic,  but functionally probabilistic networks} can learn a connectivity pattern that enables probabilistic computation with a degree of precision that matches the one attainable with idealized,  perfectly  stochastic  components (Fig-left).
+					The  key  element  of  this  construction  is  self-consistency, i.e.,  all input activity seen by a neuron is the result of output activity of other neurons that fulfill a functional role in their respective subnetworks (Fig-right).
 					
 					\end{adjustwidth}
 

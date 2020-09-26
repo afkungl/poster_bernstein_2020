@@ -71,7 +71,7 @@
 					The network approximately samples from a Boltzmann distribution over binary random variables $z_i$:
 					\thirdBlockImSpace
 					\begin{equation}
-					p(z) \sim \frac{1}{Z} \exp \left ( \frac{1}{2} \sum_{ij} W_{ij} z_i z_j + \sum_{i} b_i z_i  \right)
+					p(z) \sim \frac{1}{Z} \exp \left ( \frac{1}{2} \sum_{ij} W_{ij} z_i z_j + \sum_{i} b_i z_i  \right)\, .
 					\end{equation}
 					\thirdBlockImSpace
 					\end{adjustwidth}
@@ -138,7 +138,7 @@
 					\end{center}
 
 					\begin{adjustwidth}{1cm}{1cm}
-					As such it can emulate networks of spiking neurons with \boldmath{$10^4$}\textbf{-fold speed-up} compared to biological real-time, but suffers from the variability of the parameters (Fig-B-C).
+					As such it can emulate networks of spiking neurons with \boldmath{$10^4$}\textbf{-fold speed-up} compared to biological real-time, but suffers from considerable variability of neuron parameters (Fig-B-C).
 					Hence, we require robust network dynamics and learning rules.
 
 					\end{adjustwidth}
@@ -165,7 +165,7 @@
 
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justify
-					 Using the LIF sampling framework we implemented a \textbf{restricted Boltzmann machine} (RBM) \cite{hinton1984boltzmann} on the BrainScaleS System \cite{kungl2019accelerated}.
+					 Using the LIF sampling framework we implemented a \textbf{restricted Boltzmann machine} (RBM) \cite{hinton1984boltzmann} on the BrainScaleS system \cite{kungl2019accelerated}.
 					 We evaluate the model on a reduced version of the MNIST dataset.
 					 The original pictures were binarized, reduced to $12\times12$ pixels and the digits 0,1,4 and 7 were selected (Fig-A).
 					\end{adjustwidth}
@@ -179,7 +179,7 @@
 
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justify
-					We use an on the host computer pretrained RBM and perform \textit{in-the-loop training } to compensate for the model and substrate imperfections.
+					We map an RBM that was pretrained on a computer to BrainScaleS and perform \textit{in-the-loop training } to compensate for the model and substrate imperfections.
 					The \textbf{classification} rate recovers software level performance after $O(10)$ training steps (Fig-B).
 					The implemented model is able to \textbf{complete partially occluded images} while predicting the label correctly (Fig-C-F).
 					Finally, it is able to \textbf{generate recognizable images} if the respective label is clamped (Fig-G).

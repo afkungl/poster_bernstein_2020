@@ -68,14 +68,14 @@
 
 					In the \textbf{LIF sampling} framework \cite{petrovici2016stochastic} a single neuron describes a binary random variable based on its spiking behavior (Fig-A-B).
 					Immediately after a spike the neuron is in the \emph{on-state} and otherwise in the \emph{off-state}.
-					The network approximately samples from a Boltzmann distribution over binary random variables:
+					The network approximately samples from a Boltzmann distribution over binary random variables $z_i$:
 					\thirdBlockImSpace
 					\begin{equation}
 					p(z) \sim \frac{1}{Z} \exp \left ( \frac{1}{2} \sum_{ij} W_{ij} z_i z_j + \sum_{i} b_i z_i  \right)
 					\end{equation}
 					\thirdBlockImSpace
 					\end{adjustwidth}
-					This theory established an imporant connections to Boltzmann machines.
+					This framework establishes an imporant connection to Boltzmann machines.
 					For practical applications we use a \textbf{hierarchical sampling network} (Fig-C) inspired by restricted Boltzmann machines \cite{hinton1984boltzmann}.
 
 
@@ -97,7 +97,7 @@
 					\begin{adjustwidth}{1.cm}{1.cm}
 					\justifying
 					In most models of cortical networks, temporal variability is introduced using explicit white noise sources.
-					This is, however, problematic because i) a the \textbf{background activity of other brain areas is not necessarily white noise} and ii) a neuromorphic implementation would require dedicated, uncorrelated noise sources for every neuron. 
+					This is, however, problematic because i) the \textbf{background activity of other brain areas is not necessarily white noise} and ii) a neuromorphic implementation would require dedicated, uncorrelated noise sources for every neuron. 
 					\end{adjustwidth}
 
 					\thirdBlockImSpace
@@ -182,7 +182,7 @@
 					We use an on the host computer pretrained RBM and perform \textit{in-the-loop training } to compensate for the model and substrate imperfections.
 					The \textbf{classification} rate recovers software level performance after $O(10)$ training steps (Fig-B).
 					The implemented model is able to \textbf{complete partially occluded images} while predicting the label correctly (Fig-C-F).
-					Finally it is able to \textbf{generate recognizable images} if the respective label is clamped (Fig-G).
+					Finally, it is able to \textbf{generate recognizable images} if the respective label is clamped (Fig-G).
 
 					\end{adjustwidth}
 					\thirdBlockImSpace
